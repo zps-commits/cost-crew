@@ -1,0 +1,180 @@
+.scroll-wave {
+  --wave-edge: -8%;
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 100vh;
+  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
+  background: #173d46;
+}
+
+.scroll-wave__content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.scroll-wave__media,
+.scroll-wave__video-mask,
+.scroll-wave__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-wave__media {
+  z-index: 2;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.scroll-wave__video-mask {
+  overflow: hidden;
+  mask-image:
+    linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(var(--wave-edge) - 2.4%),
+      transparent calc(var(--wave-edge) + 2.2%)
+    ),
+    radial-gradient(
+      ellipse 18% 4.8% at 8% var(--wave-edge),
+      #000 0 56%,
+      transparent 76%
+    ),
+    radial-gradient(
+      ellipse 23% 4.2% at 31% calc(var(--wave-edge) + 0.8%),
+      #000 0 55%,
+      transparent 77%
+    ),
+    radial-gradient(
+      ellipse 20% 5.1% at 55% calc(var(--wave-edge) - 0.6%),
+      #000 0 54%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 25% 4.5% at 79% calc(var(--wave-edge) + 0.5%),
+      #000 0 57%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 17% 4.8% at 96% calc(var(--wave-edge) - 0.5%),
+      #000 0 56%,
+      transparent 76%
+    );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask-image:
+    linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(var(--wave-edge) - 2.4%),
+      transparent calc(var(--wave-edge) + 2.2%)
+    ),
+    radial-gradient(
+      ellipse 18% 4.8% at 8% var(--wave-edge),
+      #000 0 56%,
+      transparent 76%
+    ),
+    radial-gradient(
+      ellipse 23% 4.2% at 31% calc(var(--wave-edge) + 0.8%),
+      #000 0 55%,
+      transparent 77%
+    ),
+    radial-gradient(
+      ellipse 20% 5.1% at 55% calc(var(--wave-edge) - 0.6%),
+      #000 0 54%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 25% 4.5% at 79% calc(var(--wave-edge) + 0.5%),
+      #000 0 57%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 17% 4.8% at 96% calc(var(--wave-edge) - 0.5%),
+      #000 0 56%,
+      transparent 76%
+    );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  will-change: mask-image, -webkit-mask-image;
+}
+
+.scroll-wave__video {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scroll-wave__foam {
+  position: absolute;
+  z-index: 2;
+  top: var(--wave-edge);
+  left: -2%;
+  width: 104%;
+  height: clamp(5.5rem, 13vh, 9rem);
+  overflow: visible;
+  transform: translateY(-48%);
+  filter: drop-shadow(0 0.45rem 0.75rem rgb(255 255 255 / 18%));
+  will-change: top;
+}
+
+.scroll-wave__foam-line {
+  fill: none;
+  stroke: rgb(255 255 255 / 88%);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 71 16 28 10 9 7;
+  vector-effect: non-scaling-stroke;
+}
+
+.scroll-wave__foam-line--fine {
+  opacity: 0.52;
+  stroke-width: 1.15;
+  stroke-dasharray: 24 10 47 14;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-wave__video {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Estilos somente para a demo; o componente não depende deles. */
+.scroll-wave-demo__scene {
+  display: grid;
+  min-height: 100%;
+  place-content: center;
+  justify-items: center;
+  gap: 0.9rem;
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
+  background:
+    radial-gradient(circle at 72% 16%, rgb(255 212 151 / 55%), transparent 25%),
+    linear-gradient(145deg, #b47768, #5e6675 55%, #153f49);
+}
+
+.scroll-wave-demo__scene--after {
+  background:
+    radial-gradient(circle at 28% 18%, rgb(113 204 198 / 32%), transparent 26%),
+    linear-gradient(145deg, #265865, #173747 58%, #0d1d2b);
+}
+
+.scroll-wave-demo__scene p {
+  margin: 0;
+  font: 700 0.75rem/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.scroll-wave-demo__scene h2 {
+  margin: 0;
+  font: 400 clamp(3rem, 9vw, 7rem) / 0.95 Georgia, serif;
+}
