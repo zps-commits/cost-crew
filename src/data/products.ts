@@ -6,8 +6,11 @@ export type Product = {
   description: string;
   image: string;
   imageAlt: string;
+  /** Crisp, calm single-pose clip shown on the front card (4:5). */
   studioVideo: string;
   studioPoster: string;
+  /** Longer multi-pose loop used as the blurred depth layer behind the card. */
+  studioBackdrop: string;
 };
 
 export const products: Product[] = [
@@ -20,8 +23,9 @@ export const products: Product[] = [
       "The everyday hero. Washed sand cotton with a relaxed drop-shoulder cut.",
     image: "/images/collection-flatlay.jpg",
     imageAlt: "Cost Crew folded tees in sand, olive and brown on natural linen",
-    studioVideo: "/videos/studio-sand.mp4",
-    studioPoster: "/posters/studio-sand.jpg",
+    studioVideo: "/videos/studio-sand-fg.mp4",
+    studioPoster: "/posters/studio-sand-fg.jpg",
+    studioBackdrop: "/videos/studio-sand-bg.mp4",
   },
   {
     id: "olive",
@@ -32,8 +36,9 @@ export const products: Product[] = [
       "Muted, earthy and grounded. Heavyweight cotton with a coastal-washed finish.",
     image: "/images/olive-rocks.jpg",
     imageAlt: "Man in olive Cost Crew oversized tee sitting on coastal rocks at sunset",
-    studioVideo: "/videos/studio-olive.mp4",
-    studioPoster: "/posters/studio-olive.jpg",
+    studioVideo: "/videos/studio-olive-fg.mp4",
+    studioPoster: "/posters/studio-olive-fg.jpg",
+    studioBackdrop: "/videos/studio-olive-bg.mp4",
   },
   {
     id: "brown",
@@ -44,7 +49,8 @@ export const products: Product[] = [
       "Rich chocolate tone with a soft, broken-in hand feel from the first wear.",
     image: "/images/surf-brown-beach.jpg",
     imageAlt: "Man in brown Cost Crew tee holding a surfboard on the beach at golden hour",
-    studioVideo: "/videos/studio-brown.mp4",
-    studioPoster: "/posters/studio-brown.jpg",
+    studioVideo: "/videos/studio-brown-fg.mp4",
+    studioPoster: "/posters/studio-brown-fg.jpg",
+    studioBackdrop: "/videos/studio-brown-bg.mp4",
   },
 ];

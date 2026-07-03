@@ -1,6 +1,10 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import {
+  WaveFoamTransition,
+  FoamSentinel,
+} from "@/components/ui/WaveFoamTransition";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { BrandManifesto } from "@/components/sections/BrandManifesto";
 import { FloatingImageCarousel } from "@/components/sections/FloatingImageCarousel";
@@ -17,18 +21,29 @@ export default function Home() {
   return (
     <>
       <ScrollProgress />
+      <WaveFoamTransition />
       <Header />
       <main>
         <HeroSection />
+        <FoamSentinel />
         <BrandManifesto />
+        <FoamSentinel />
         <FloatingImageCarousel />
+        <FoamSentinel />
         <StudioLookbook />
+        <FoamSentinel />
         <CollectionSection />
+        <FoamSentinel />
         <QualitySection />
+        <FoamSentinel />
         <LifestyleSection />
+        <FoamSentinel />
         <PackagingSection />
+        <FoamSentinel />
         <EditorialGallery />
+        <FoamSentinel />
         <TestimonialsSection />
+        <FoamSentinel />
         <FinalCTA />
       </main>
       <Footer />

@@ -3,145 +3,198 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { VideoPlayer } from "@/components/ui/VideoPlayer";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { TiltCard } from "@/components/ui/TiltCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { products } from "@/data/products";
 import { easeCoast } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 const labels: Record<string, string> = { sand: "A", olive: "B", brown: "C" };
-const backdrop = (studioVideo: string) => studioVideo.replace(".mp4", "-alt.mp4");
 
 export function StudioLookbook() {
-  const [activeId, setActiveId] = useState(products[0].id);
-  const active = products.find((p) => p.id === activeId)!;
-  const others = products.filter((p) => p.id !== activeId);
+  const [active, setActive] = useState(0);
+  const n = products.length;
+  const go = (dir: number) => setActive((a) => (a + dir + n) % n);
 
   return (
     <section
       id="lookbook"
       className="relative overflow-hidden bg-bone px-5 py-24 sm:px-8 sm:py-32"
     >
-      {/* soft blurred backdrop of the active model */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -inset-24 opacity-30 blur-3xl">
-          <VideoPlayer
-            key={active.id}
-            src={backdrop(active.studioVideo)}
-            poster={active.studioPoster}
-          />
-        </div>
-        <div className="absolute inset-0 bg-bone/55" />
+      {/* header */}
+      <div className="mx-auto flex max-w-[1400px] flex-col items-center text-center">
+        <Reveal>
+          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink">
+            <PlayIcon className="ml-0.5 h-4 w-4" />
+          </span>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="label mt-5 text-ink-soft">Play. Swipe. Discover.</p>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <h2 className="mt-4 max-w-[20ch] font-display text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.1] text-ink">
+            Play the fit. <span className="italic text-clay">Feel the movement.</span>
+          </h2>
+        </Reveal>
       </div>
 
-      <div className="relative mx-auto max-w-[1400px]">
-        <div className="flex flex-col items-center text-center">
-          <Reveal>
-            <SectionLabel className="justify-center">Studio Lookbook</SectionLabel>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="mt-6 font-display text-[clamp(2.2rem,5.5vw,4.4rem)] text-ink">
-              Play. Swipe. <span className="italic text-clay">Discover.</span>
-            </h2>
-          </Reveal>
-        </div>
-
-        <div className="mt-14 grid gap-4 lg:grid-cols-[1.5fr_1fr] lg:gap-5">
-          {/* main card */}
-          <div className="relative aspect-[3/4] lg:aspect-auto lg:h-[620px]">
-            <LookCard
-              product={active}
-              main
-              onSelect={() => {}}
-            />
-          </div>
-
-          {/* stacked small cards */}
-          <div className="grid grid-rows-2 gap-4 lg:gap-5">
-            {others.map((p) => (
-              <div key={p.id} className="relative min-h-[220px]">
-                <LookCard product={p} onSelect={() => setActiveId(p.id)} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col items-center gap-5">
-          <div className="flex items-center gap-2.5">
-            {products.map((p) => (
-              <button
+      {/* ---------- desktop stage ---------- */}
+      <div className="relative mx-auto mt-16 hidden max-w-[1400px] sm:block">
+        <div className="flex items-center justify-center gap-6 [perspective:1600px] lg:gap-10">
+          {products.map((p, i) => {
+            const isActive = i === active;
+            return (
+              <motion.div
                 key={p.id}
-                type="button"
-                aria-label={`Show ${p.name}`}
-                onClick={() => setActiveId(p.id)}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  p.id === activeId ? "w-7 bg-ink" : "w-1.5 bg-ink/25 hover:bg-ink/50"
-                }`}
-              />
-            ))}
-          </div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-bone/70 px-5 py-2.5 backdrop-blur">
-            <PointerIcon />
-            <span className="label !text-[0.62rem] text-ink-soft">
-              Tap a card to explore
-            </span>
-          </span>
+                initial={false}
+                animate={{
+                  scale: isActive ? 1.06 : 0.92,
+                  y: isActive ? -14 : 8,
+                  opacity: isActive ? 1 : 0.82,
+                }}
+                transition={{ duration: 0.8, ease: easeCoast }}
+                className="relative w-[clamp(220px,22vw,320px)] shrink-0"
+                style={{ zIndex: isActive ? 20 : 10 }}
+              >
+                {/* blurred multi-pose depth layer */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-x-10 -top-12 bottom-4 -z-10 overflow-hidden rounded-[2.4rem]"
+                >
+                  <motion.div
+                    animate={{ opacity: isActive ? 0.4 : 0.22 }}
+                    transition={{ duration: 0.8 }}
+                    className="h-full w-full scale-125 blur-2xl"
+                  >
+                    <VideoPlayer
+                      src={p.studioBackdrop}
+                      poster={p.studioPoster}
+                      objectPosition="center 30%"
+                    />
+                  </motion.div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActive(i)}
+                  aria-label={`Show ${p.name}`}
+                  aria-pressed={isActive}
+                  className="block w-full"
+                >
+                  <TiltCard max={isActive ? 10 : 6} scale={1.02}>
+                    <FrontCard product={p} active={isActive} priority={i === 0} />
+                  </TiltCard>
+                </button>
+              </motion.div>
+            );
+          })}
         </div>
+
+        {/* arrows */}
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous look"
+          className="absolute left-0 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-ink/15 bg-bone/70 text-ink backdrop-blur transition-colors hover:bg-ink hover:text-bone"
+        >
+          <Chevron dir="left" />
+        </button>
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next look"
+          className="absolute right-0 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-ink/15 bg-bone/70 text-ink backdrop-blur transition-colors hover:bg-ink hover:text-bone"
+        >
+          <Chevron dir="right" />
+        </button>
+      </div>
+
+      {/* ---------- mobile: swipe carousel ---------- */}
+      <div className="mt-12 sm:hidden">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {products.map((p, i) => (
+            <div
+              key={p.id}
+              className="w-[78vw] shrink-0 snap-center"
+            >
+              <FrontCard product={p} active priority={i === 0} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* dots + pill */}
+      <div className="mt-10 flex flex-col items-center gap-5">
+        <div className="hidden items-center gap-2.5 sm:flex">
+          {products.map((p, i) => (
+            <button
+              key={p.id}
+              type="button"
+              aria-label={`Show ${p.name}`}
+              onClick={() => setActive(i)}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-500",
+                i === active ? "w-7 bg-ink" : "w-1.5 bg-ink/25 hover:bg-ink/50",
+              )}
+            />
+          ))}
+        </div>
+        <span className="inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-bone/70 px-6 py-3 backdrop-blur">
+          <PointerIcon />
+          <span className="label !text-[0.62rem] text-ink-soft">
+            <span className="hidden sm:inline">Drag to explore</span>
+            <span className="sm:hidden">Swipe to explore</span>
+          </span>
+        </span>
       </div>
     </section>
   );
 }
 
-function LookCard({
+function FrontCard({
   product,
-  main = false,
-  onSelect,
+  active,
+  priority,
 }: {
   product: (typeof products)[number];
-  main?: boolean;
-  onSelect: () => void;
+  active: boolean;
+  priority?: boolean;
 }) {
-  const Wrapper = main ? "div" : "button";
   return (
-    <motion.div
-      layoutId={`look-${product.id}`}
-      transition={{ duration: 0.7, ease: easeCoast }}
-      className="group absolute inset-0"
+    <div
+      className={cn(
+        "group relative aspect-[4/5] w-full overflow-hidden rounded-[1.8rem] border border-white/50 bg-bone-dim transition-shadow duration-700",
+        active
+          ? "shadow-[0_50px_90px_-35px_rgba(42,38,32,0.55)]"
+          : "shadow-[0_24px_50px_-30px_rgba(42,38,32,0.4)]",
+      )}
     >
-      <Wrapper
-        {...(!main ? { type: "button", onClick: onSelect } : {})}
-        className="relative block h-full w-full overflow-hidden rounded-[var(--radius-card)] bg-sand text-left shadow-[0_50px_90px_-40px_rgba(42,38,32,0.5)]"
-      >
-        <VideoPlayer
-          src={product.studioVideo}
-          poster={product.studioPoster}
-          className="transition-transform duration-700 ease-[var(--ease-coast)] group-hover:scale-[1.04]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-chocolate-deep/40 via-transparent to-transparent" />
+      <VideoPlayer
+        src={product.studioVideo}
+        poster={product.studioPoster}
+        objectPosition="center 40%"
+        lazy={!priority}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-chocolate-deep/25 via-transparent to-transparent" />
 
-        {/* label chip */}
-        <span className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-bone/85 font-display text-sm text-ink backdrop-blur">
-          {labels[product.id]}
+      <span className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-bone/85 font-display text-sm text-ink backdrop-blur">
+        {labels[product.id]}
+      </span>
+      <span className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-full bg-bone/85 text-ink backdrop-blur transition-transform duration-500 group-hover:scale-110">
+        <PlayIcon className="ml-0.5 h-3.5 w-3.5" />
+      </span>
+      <span className="absolute bottom-3 right-3 text-right">
+        <span className="block font-display text-base leading-tight text-bone drop-shadow">
+          {product.colorName}
         </span>
-
-        {/* play dot */}
-        <span className="absolute bottom-4 left-4 flex h-10 w-10 items-center justify-center rounded-full bg-bone/85 text-ink backdrop-blur transition-transform duration-500 group-hover:scale-110">
-          <PlayIcon />
-        </span>
-
-        {main && (
-          <div className="absolute bottom-5 right-5 text-right">
-            <p className="font-display text-xl text-bone">{product.colorName}</p>
-            <p className="label !text-[0.6rem] text-bone/70">{product.name}</p>
-          </div>
-        )}
-      </Wrapper>
-    </motion.div>
+      </span>
+    </div>
   );
 }
 
-function PlayIcon() {
+function PlayIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="ml-0.5 h-3.5 w-3.5" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
       <path d="M8 5v14l11-7z" />
     </svg>
   );
@@ -162,6 +215,21 @@ function PointerIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+function Chevron({ dir }: { dir: "left" | "right" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.6}
+      className={cn("h-5 w-5", dir === "left" && "rotate-180")}
+      aria-hidden="true"
+    >
+      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

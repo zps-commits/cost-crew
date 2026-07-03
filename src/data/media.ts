@@ -115,10 +115,3 @@ export const packagingMedia = {
 export const ctaMedia = {
   image: "/images/coastal-road-sunset.jpg",
 };
-
-// Blurred background loops behind the Studio Lookbook cards
-export const lookbookBackdrops = [
-  "/videos/studio-sand-alt.mp4",
-  "/videos/studio-olive-alt.mp4",
-  "/videos/studio-brown-alt.mp4",
-];
