@@ -56,22 +56,23 @@ export function StudioLookbook() {
                 className="relative w-[clamp(220px,22vw,320px)] shrink-0"
                 style={{ zIndex: isActive ? 20 : 10 }}
               >
-                {/* blurred multi-pose depth layer */}
+                {/* larger, lightly-blurred multi-pose video behind the card */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute -inset-x-10 -top-12 bottom-4 -z-10 overflow-hidden rounded-[2.4rem]"
+                  className="pointer-events-none absolute -inset-x-[4.5rem] -top-24 -bottom-16 -z-10 overflow-hidden rounded-[2.6rem]"
                 >
                   <motion.div
-                    animate={{ opacity: isActive ? 0.4 : 0.22 }}
+                    animate={{ opacity: isActive ? 0.85 : 0.55 }}
                     transition={{ duration: 0.8 }}
-                    className="h-full w-full scale-125 blur-2xl"
+                    className="h-full w-full scale-110 blur-[6px]"
                   >
                     <VideoPlayer
                       src={p.studioBackdrop}
-                      poster={p.studioPoster}
-                      objectPosition="center 30%"
+                      poster={p.studioBackdropPoster}
+                      objectPosition="center 28%"
                     />
                   </motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-bone/40 via-transparent to-bone/20" />
                 </div>
 
                 <button

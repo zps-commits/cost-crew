@@ -9,8 +9,9 @@ export type Product = {
   /** Crisp, calm single-pose clip shown on the front card (4:5). */
   studioVideo: string;
   studioPoster: string;
-  /** Longer multi-pose loop used as the blurred depth layer behind the card. */
+  /** Longer multi-pose loop used as the depth layer behind the card. */
   studioBackdrop: string;
+  studioBackdropPoster: string;
 };
 
 export const products: Product[] = [
@@ -26,6 +27,7 @@ export const products: Product[] = [
     studioVideo: "/videos/studio-sand-fg.mp4",
     studioPoster: "/posters/studio-sand-fg.jpg",
     studioBackdrop: "/videos/studio-sand-bg.mp4",
+    studioBackdropPoster: "/posters/studio-sand-bg.jpg",
   },
   {
     id: "olive",
@@ -39,6 +41,7 @@ export const products: Product[] = [
     studioVideo: "/videos/studio-olive-fg.mp4",
     studioPoster: "/posters/studio-olive-fg.jpg",
     studioBackdrop: "/videos/studio-olive-bg.mp4",
+    studioBackdropPoster: "/posters/studio-olive-bg.jpg",
   },
   {
     id: "brown",
@@ -52,5 +55,6 @@ export const products: Product[] = [
     studioVideo: "/videos/studio-brown-fg.mp4",
     studioPoster: "/posters/studio-brown-fg.jpg",
     studioBackdrop: "/videos/studio-brown-bg.mp4",
+    studioBackdropPoster: "/posters/studio-brown-bg.jpg",
   },
 ];

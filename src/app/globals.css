@@ -109,6 +109,16 @@
   }
 }
 
+/* Editorial bento: fully-tiled 4x3 layout on desktop only (mobile flows 2-col) */
+@media (min-width: 768px) {
+  .editorial-bento {
+    grid-template-areas:
+      "A A B C"
+      "A A D D"
+      "E F D D";
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

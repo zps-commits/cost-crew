@@ -11,7 +11,7 @@ import { LifestyleSection } from "@/components/sections/LifestyleSection";
 import { PackagingSection } from "@/components/sections/PackagingSection";
 import { EditorialGallery } from "@/components/sections/EditorialGallery";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { ClosingWaveScene } from "@/components/sections/ClosingWaveScene";
+import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function Home() {
   return (
@@ -29,7 +29,7 @@ export default function Home() {
         <PackagingSection />
         <EditorialGallery />
         <TestimonialsSection />
-        <ClosingWaveScene />
+        <FinalCTA />
       </main>
       <Footer />
     </>
