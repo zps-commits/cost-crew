@@ -56,6 +56,7 @@ export function EditorialGallery() {
                 alt={item.alt}
                 fill
                 sizes="(max-width: 640px) 50vw, 25vw"
+                quality={90}
                 className="object-cover transition-transform duration-[900ms] ease-[var(--ease-coast)] group-hover:scale-[1.07]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-chocolate-deep/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

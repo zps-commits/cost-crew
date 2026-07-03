@@ -56,6 +56,7 @@ export function LifestyleSection() {
                 alt="Surfer with board in a brown Cost Crew tee at golden hour"
                 fill
                 sizes="(max-width: 1024px) 50vw, 33vw"
+                quality={90}
                 className="object-cover"
               />
             </motion.div>
@@ -83,6 +84,7 @@ export function LifestyleSection() {
                   alt="Skater looking out to sea in an off-white tee"
                   fill
                   sizes="160px"
+                  quality={90}
                   className="object-cover"
                 />
               </motion.div>

@@ -161,6 +161,7 @@ function Card({ item, priority }: { item: (typeof carouselItems)[number]; priori
         alt={item.alt}
         fill
         sizes="(max-width: 768px) 70vw, 400px"
+        quality={90}
         className="object-cover"
         priority={priority}
         draggable={false}

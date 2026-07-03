@@ -48,6 +48,7 @@ export function QualitySection() {
                   alt="Close-up of collar stitching and woven wave label"
                   fill
                   sizes="(max-width: 1024px) 50vw, 25vw"
+                  quality={90}
                   className="object-cover"
                 />
               </motion.div>

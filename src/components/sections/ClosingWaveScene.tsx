@@ -32,6 +32,7 @@ function BeforeScene() {
         alt="Surfer at golden hour on the coast"
         fill
         sizes="100vw"
+        quality={90}
         className="object-cover object-[center_35%]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-olive-deep via-olive-deep/40 to-olive-deep/60" />
@@ -53,6 +54,7 @@ function AfterScene() {
         alt="Coastal road at sunset with palm trees and ocean"
         fill
         sizes="100vw"
+        quality={90}
         className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-chocolate-deep via-chocolate-deep/45 to-chocolate-deep/30" />

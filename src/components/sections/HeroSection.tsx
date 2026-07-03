@@ -32,6 +32,7 @@ export function HeroSection() {
           src={heroMedia.video}
           poster={heroMedia.poster}
           className="scale-105"
+          lazy={false}
         />
       </motion.div>
 
